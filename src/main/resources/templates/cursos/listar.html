@@ -1,24 +1,31 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head><title>Cursos</title></head>
-<body>
-  <h1>Lista de Cursos</h1>
-  <a th:href="@{/cursos/novo}" th:if="${#authorization.expr('hasRole(''ROLE_ADMIN'')')}">Novo Curso</a>
-  <table>
-    <thead><tr><th>ID</th><th>Nome</th><th>Duração</th><th>Ações</th></tr></thead>
-    <tbody>
-      <tr th:each="c : ${cursos}">
-        <td th:text="${c.id}">1</td>
-        <td th:text="${c.nome}">Nome</td>
-        <td th:text="${c.duracaoHoras}">20</td>
-        <td>
-          <a th:href="@{/cursos/editar/{id}(id=${c.id})}" th:if="${#authorization.expr('hasRole(''ROLE_ADMIN'')')}">Editar</a>
-          <form th:action="@{/cursos/remover/{id}(id=${c.id})}" method="post" th:if="${#authorization.expr('hasRole(''ROLE_ADMIN'')')}">
-            <button type="submit">Remover</button>
-          </form>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</body>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <div th:replace="fragments/layout :: layout('Cursos', ~{::content})">
+    <div th:fragment="content">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h3">Lista de Cursos</h1>
+        <a th:href="@{/admin/cursos/novo}" sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-success">Novo Curso</a>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered align-middle shadow-sm">
+          <thead class="table-light"><tr><th>ID</th><th>Nome</th><th>Duração</th><th>Ações</th></tr></thead>
+          <tbody>
+            <tr th:each="c : ${cursos}">
+              <td th:text="${c.id}">1</td>
+              <td th:text="${c.nome}">Nome</td>
+              <td th:text="${c.duracaoHoras}">20</td>
+              <td>
+                <a th:href="@{/admin/cursos/editar/{id}(id=${c.id})}" sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-sm btn-primary me-2">Editar</a>
+                <form th:action="@{/admin/cursos/remover/{id}(id=${c.id})}" method="post" sec:authorize="hasRole('ROLE_ADMIN')" style="display:inline">
+                  <button type="submit" class="btn btn-sm btn-danger">Remover</button>
+                </form>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </html>

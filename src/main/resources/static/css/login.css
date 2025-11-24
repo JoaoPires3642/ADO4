@@ -1,0 +1,4 @@
+/* Estilos leves para a página de login */
+body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+.card { border-radius: 0.5rem; }
+.card-title { text-align: center; }

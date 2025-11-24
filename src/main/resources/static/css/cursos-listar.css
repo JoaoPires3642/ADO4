@@ -1,0 +1,3 @@
+/* Estilos leves para lista de cursos */
+table { margin-bottom: 0; }
+.table td, .table th { vertical-align: middle; }

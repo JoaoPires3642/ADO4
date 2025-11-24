@@ -1,0 +1,3 @@
+/* Estilos leves para formulário de cursos */
+label { font-weight: 600; }
+textarea.form-control { resize: vertical; }

@@ -9,7 +9,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        // Redireciona '/' para a página de login
-        registry.addViewController("/").setViewName("redirect:/login");
+        // Redireciona '/' para a área administrativa de cursos
+        registry.addViewController("/").setViewName("redirect:/admin/cursos");
     }
 }

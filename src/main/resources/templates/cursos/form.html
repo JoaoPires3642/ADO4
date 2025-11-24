@@ -1,14 +1,33 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><title>Curso</title></head>
-<body>
-  <h1 th:text="${curso.id} != null ? 'Editar Curso' : 'Novo Curso'"></h1>
-  <form th:action="@{/cursos/salvar}" th:object="${curso}" method="post">
-    <input type="hidden" th:field="*{id}" />
-    <div><label>Nome</label><input th:field="*{nome}" /></div>
-    <div><label>Descrição</label><textarea th:field="*{descricao}"></textarea></div>
-    <div><label>Duração (horas)</label><input type="number" th:field="*{duracaoHoras}" /></div>
-    <button type="submit">Salvar</button>
-  </form>
-</body>
+<html xmlns:th="http://www.thymeleaf.org">
+  <div th:replace="fragments/layout :: layout('Curso', ~{::content})">
+    <div th:fragment="content">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h1 class="h4 mb-4" th:text="${curso.id} != null ? 'Editar Curso' : 'Novo Curso'"></h1>
+
+          <form th:action="@{/admin/cursos/salvar}" th:object="${curso}" method="post">
+            <input type="hidden" th:field="*{id}" />
+            <div class="mb-3">
+              <label class="form-label">Nome</label>
+              <input th:field="*{nome}" class="form-control" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Descrição</label>
+              <textarea th:field="*{descricao}" class="form-control" rows="4"></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Duração (horas)</label>
+              <input type="number" th:field="*{duracaoHoras}" class="form-control" />
+            </div>
+            <div class="d-flex">
+              <button type="submit" class="btn btn-primary">Salvar</button>
+              <a th:href="@{/admin/cursos}" class="btn btn-secondary ms-2">Cancelar</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </html>
