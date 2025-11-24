@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Cursos</title></head>
+<body>
+  <h1>Lista de Cursos</h1>
+  <a th:href="@{/cursos/novo}" th:if="${#authorization.expr('hasRole(''ROLE_ADMIN'')')}">Novo Curso</a>
+  <table>
+    <thead><tr><th>ID</th><th>Nome</th><th>Duração</th><th>Ações</th></tr></thead>
+    <tbody>
+      <tr th:each="c : ${cursos}">
+        <td th:text="${c.id}">1</td>
+        <td th:text="${c.nome}">Nome</td>
+        <td th:text="${c.duracaoHoras}">20</td>
+        <td>
+          <a th:href="@{/cursos/editar/{id}(id=${c.id})}" th:if="${#authorization.expr('hasRole(''ROLE_ADMIN'')')}">Editar</a>
+          <form th:action="@{/cursos/remover/{id}(id=${c.id})}" method="post" th:if="${#authorization.expr('hasRole(''ROLE_ADMIN'')')}">
+            <button type="submit">Remover</button>
+          </form>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>
